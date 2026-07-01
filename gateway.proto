@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+import "google/protobuf/empty.proto";
+
+package app.v1;
+
+service GatewayService {
+  rpc Auth(AuthRequest) returns (stream Event);
+  rpc Mock(MockRequest) returns (stream Event);
+}
+
+message MockRequest {
+  uint64 id = 1;
+  string username = 2;
+  string avatar = 3;
+  uint64 guildId = 4;
+  uint64 instanceId = 5;
+}
+
+message AuthRequest {
+  string code = 1;
+  uint64 guildId = 2;
+  uint64 instanceId = 3;
+}
+
+message Event {
+  oneof payload {
+    OnJoinEvent join = 1;
+    OnPingEvent ping = 2;
+  }
+}
+
+message OnJoinEvent {
+  uint64 event_id = 1;
+  uint64 user_id = 2;
+  string username = 3;
+  string avatar = 4;
+}
+
+message OnPingEvent {
+  uint64 event_id = 1;
+  uint64 user_id = 2;
+  uint32 position_x = 3;
+  uint32 position_y = 4;
+}

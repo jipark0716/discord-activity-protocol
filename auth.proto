@@ -1,19 +1,19 @@
 syntax = "proto3";
 
+import "google/protobuf/empty.proto";
+
 package app.v1;
 
 service AuthService {
-  rpc GetToken(AuthRequest) returns (AuthResponse);
+  rpc GetMembers(google.protobuf.Empty) returns (MemberCollection);
 }
 
-message AuthRequest {
-  string code = 1;
+message MemberCollection {
+  repeated Member members = 1;
 }
 
-message AuthResponse {
-  string access_token = 1;
-  string token_type = 2;
-  uint64 expires_in = 3;
-  string refresh_token = 4;
-  string scope = 5;
+message Member {
+  uint64 user_id = 1;
+  string username = 2;
+  string avatar = 3;
 }

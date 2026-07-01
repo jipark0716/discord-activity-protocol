@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+package app.v1;
+
+import "google/protobuf/empty.proto";
+
+service MessageService {
+  rpc CreateMessage(PingRequest) returns (google.protobuf.Empty);
+}
+
+message PingRequest {
+  uint32 position_x = 1;
+  uint32 position_y = 2;
+}
